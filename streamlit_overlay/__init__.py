@@ -39,7 +39,9 @@ def overlay(images: Union[np.ndarray, List[Image]],
             key: str = None,
             toggle_label: str = "Display Overlay",
             fps: int = 30,
-            autoplay: bool = False):
+            autoplay: bool = False,
+            loop: bool = False,
+            display_mask_default: bool = False):
     """Create a new instance of "Overlay".
 
     Parameters
@@ -60,6 +62,10 @@ def overlay(images: Union[np.ndarray, List[Image]],
         The frames per second to use when displaying a video.
     autoplay: bool
         Whether to automatically play the video.
+    loop: bool
+        Whether to loop the video when it reaches the end.
+    display_mask_default: bool
+        Whether to display the mask overlay by default.
 
     Returns
     -------
@@ -91,6 +97,8 @@ def overlay(images: Union[np.ndarray, List[Image]],
                                       toggleLabel=toggle_label,
                                       fps=fps,
                                       autoplay=autoplay,
+                                      loop=loop,
+                                      displayMaskDefault=display_mask_default,
                                       default=0)
 
     return component_value
@@ -100,6 +108,8 @@ def heatmap_overlay(images: np.ndarray,
                        masks: Union[np.ndarray, None] = None,
                        colormap: int = cv2.COLORMAP_JET,
                        toggle_label: str = "Display Heatmap",
+                       loop: bool = False,
+                       display_mask_default: bool = False,
                        *args, **kwargs
                        ):
     """Create a new instance of "heatmap_overlay".
@@ -112,6 +122,10 @@ def heatmap_overlay(images: np.ndarray,
         The mask to overlay on the image.
     colormap: int
         The OpenCV colormap to use when overlaying the mask.
+    loop: bool
+        Whether to loop the video when it reaches the end.
+    display_mask_default: bool
+        Whether to display the heatmap overlay by default.
 
     Returns
     -------
@@ -133,4 +147,5 @@ def heatmap_overlay(images: np.ndarray,
     else:
         heatmaps = []
 
-    return overlay(images=images, masks=heatmaps, toggle_label=toggle_label, *args, **kwargs)
+    return overlay(images=images, masks=heatmaps, toggle_label=toggle_label, 
+                  loop=loop, display_mask_default=display_mask_default, *args, **kwargs)

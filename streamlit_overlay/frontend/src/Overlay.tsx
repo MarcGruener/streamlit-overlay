@@ -31,6 +31,8 @@ interface OverlayProps {
   toggleLabel?: string;
   fps?: number;
   autoplay?: boolean;
+  loop?: boolean;
+  displayMaskDefault?: boolean;
 }
 
 const Overlay: React.FC<ComponentProps> = (props: any) => {
@@ -44,17 +46,19 @@ const Overlay: React.FC<ComponentProps> = (props: any) => {
     toggleLabel = "Display Overlay",
     fps = 30,
     autoplay = false,
+    loop: loopInit = false,
+    displayMaskDefault = false,
   }: OverlayProps = props.args;
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [masks, setMasks] = useState<HTMLImageElement[]>([]);
-  const [displaymask, setDisplayMask] = useState<boolean>(false);
+  const [displaymask, setDisplayMask] = useState<boolean>(displayMaskDefault);
   const [alpha, setAlpha] = useState<number>(alphaInit);
   const [frameIdx, setFrameIdx] = useState<number>(0);
 
   // options
   const [displayControls, setDisplayControls] = useState<boolean>(true);
-  const [loop, setLoop] = useState<boolean>(false);
+  const [loop, setLoop] = useState<boolean>(loopInit);
 
   useEffect(() => {
     Streamlit.setFrameHeight();
